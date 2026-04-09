@@ -53,8 +53,7 @@ converted_at: 2026-04-09
 - Lint：見 .claude/commands/lint.md — 知識庫健康檢查
 
 ## PDF / 非 md 檔案轉換規則
-- 學術論文（雙欄排版、公式、參考文獻）：使用 `marker` 轉換
-- 一般 PDF / docx / pptx 文件：使用 `markitdown` 轉換
+- 所有 PDF / docx / pptx 文件統一使用 `markitdown` 轉換
 - 絕對不要直接用 Read 工具讀取 PDF，轉換品質差異大
 
 ## 寫作風格

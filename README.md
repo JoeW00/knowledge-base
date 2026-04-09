@@ -56,7 +56,7 @@
 ```
 /ingest
   ├── 盤點 raw/ 中所有檔案
-  ├── 轉換非 md 檔（PDF 論文用 marker，一般文件用 markitdown）
+  ├── 轉換非 md 檔（使用 markitdown）
   ├── 比對 wiki/summaries/ 找出未處理檔案
   ├── 逐一呼叫 /compile --batch（跳過逐次 index）
   └── 全部完成後統一執行 /index
@@ -78,8 +78,7 @@
 - [Claude Code](https://claude.ai/code)
 - [Obsidian](https://obsidian.md)（選用，作為 wiki 閱讀器）
 - Python 3.14+（`uv` 管理）
-- [markitdown](https://github.com/microsoft/markitdown) — 一般 PDF / docx / pptx 轉 Markdown
-- [marker](https://github.com/VikParuchuri/marker) — 學術論文 PDF 轉 Markdown（雙欄排版、公式、參考文獻）
+- [markitdown](https://github.com/microsoft/markitdown) — PDF / docx / pptx 轉 Markdown
 
 ### 安裝
 
@@ -89,7 +88,6 @@ cd ~/knowledge-base
 
 # 安裝 PDF / 文件轉換工具
 uv tool install markitdown
-pip install marker-pdf
 ```
 
 ### 建立目錄
@@ -124,7 +122,7 @@ claude
 
 - **Obsidian wiki-link 語法**：文章之間用 `[[concept-name]]` 互連，搭配 Obsidian graph view 視覺化知識網路
 - **Summary 的 `source:` 欄位**：frontmatter 中記錄來源路徑，是 `/ingest` 判斷「已處理」的唯一依據
-- **PDF 轉換工具分流**：學術論文用 `marker`（雙欄排版 + 公式），一般文件用 `markitdown`（輕量快速）
+- **PDF 轉換**：所有 PDF / docx / pptx 統一使用 `markitdown` 轉換
 - **`--batch` 旗標**：`/compile --batch` 跳過 `/index`，由 `/ingest` 在批次結束後統一執行一次，避免重複 index
 
 ## Roadmap

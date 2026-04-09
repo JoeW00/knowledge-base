@@ -23,15 +23,7 @@ description: 自動找出 raw/ 下尚未 compile 的檔案並編譯（支援 PDF
 
 ## 階段二：轉換非 md 檔案
 
-3. 對每個非 md 檔案：
-   - **PDF 論文**：優先用 `marker` 轉換為 Markdown（學術論文專用，處理雙欄排版、公式、參考文獻更佳）
-     ```bash
-     marker /path/to/paper.pdf --output_dir /tmp/paper.pdf.md
-     ```
-     轉換後讀取產出的 .md 檔案作為來源。
-   - **PDF/DOCX 一般文件**：用 `markitdown` 轉換（保留表格與標題層級）
-     ```bash
-     markitdown /path/to/file.pdf > /tmp/file.pdf.md
+3. 對每個非 md 檔案，使用 `markitdown` 轉換為 Markdown（保留表格與標題層級）：
    - 執行 `markitdown "原始檔路徑" > "原始檔路徑.md"`
    - 例如：`markitdown raw/papers/paper.pdf > raw/papers/paper.pdf.md`
    - 轉換失敗的檔案記錄下來，最後回報
@@ -61,7 +53,7 @@ description: 自動找出 raw/ 下尚未 compile 的檔案並編譯（支援 PDF
 
 ## 錯誤處理
 
-- markitdown / marker 失敗：記錄錯誤訊息，跳過該檔案繼續
+- markitdown 失敗：記錄錯誤訊息，跳過該檔案繼續
 - compile 失敗：記錄失敗檔案，繼續下一個
 - 最後統一回報：成功 X 個、轉換失敗 Y 個、compile 失敗 Z 個
 
