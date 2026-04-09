@@ -1,5 +1,7 @@
 # LLM Knowledge Base
 
+> v0.1.0
+
 以 LLM 作為知識維護 agent 的個人知識庫系統。
 
 靈感來自 Andrej Karpathy 的「LLM Knowledge Bases」構想，使用 **Claude Code + Obsidian** 實作，讓 LLM 從「寫程式的工具」轉變為「維護知識的 agent」。
@@ -76,12 +78,18 @@
 - [Claude Code](https://claude.ai/code)
 - [Obsidian](https://obsidian.md)（選用，作為 wiki 閱讀器）
 - Python 3.14+（`uv` 管理）
+- [markitdown](https://github.com/microsoft/markitdown) — 一般 PDF / docx / pptx 轉 Markdown
+- [marker](https://github.com/VikParuchuri/marker) — 學術論文 PDF 轉 Markdown（雙欄排版、公式、參考文獻）
 
 ### 安裝
 
 ```bash
 git clone <repo-url> ~/knowledge-base
 cd ~/knowledge-base
+
+# 安裝 PDF / 文件轉換工具
+uv tool install markitdown
+pip install marker-pdf
 ```
 
 ### 建立目錄
@@ -118,6 +126,14 @@ claude
 - **Summary 的 `source:` 欄位**：frontmatter 中記錄來源路徑，是 `/ingest` 判斷「已處理」的唯一依據
 - **PDF 轉換工具分流**：學術論文用 `marker`（雙欄排版 + 公式），一般文件用 `markitdown`（輕量快速）
 - **`--batch` 旗標**：`/compile --batch` 跳過 `/index`，由 `/ingest` 在批次結束後統一執行一次，避免重複 index
+
+## Roadmap
+
+- **Wiki Search MCP Server** — 把 wiki 搜尋包成 local MCP server，掛進 Claude Code，讓 `/ask` 能更精準地檢索知識庫
+- **Marp 簡報輸出** — 從 wiki 內容直接產出簡報，用於客戶 demo 或內部分享
+- **Manifest 升級** — 從 frontmatter `source:` 反查升級到 `.compiled.json`，加上 file hash 偵測內容變更，避免重複 compile 未修改的檔案
+- **whisper.cpp 逐字稿** — 自動處理 podcast 和影片音檔，轉為逐字稿存入 `raw/transcripts/`
+- **Synthetic data + finetune**（長期）— 讓 LLM 將 wiki 內容內化到模型權重中，而非僅依賴 context window
 
 ## 授權
 
