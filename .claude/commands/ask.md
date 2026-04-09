@@ -9,9 +9,13 @@ description: 針對 wiki 內容進行研究型問答
 2. 用 Grep/Glob 在 wiki/ 內搜尋相關文章
 3. 讀取 3-8 篇最相關的文章
 4. 若 wiki 內資訊不足，可以讀 raw/ 下對應的原始素材
-5. 綜合產生答案，存到 `outputs/reports/{YYYY-MM-DD}-{slug}.md`
+5. 若 wiki 與 raw 的資訊仍不足以回答技術細節（特別是特定框架的 API 用法、版本差異、設定語法等），使用 Context7 MCP server 查詢相關程式庫的最新官方文件：
+   - 先用 `resolve-library-id` 確認程式庫 ID
+   - 再用 `query-docs` 取得相關文件段落
+   - 在報告中明確標註哪些資訊來自 Context7（官方文件）
+6. 綜合產生答案，存到 `outputs/reports/{YYYY-MM-DD}-{slug}.md`
    - 答案必須引用具體的 wiki 文章（用 wiki-link）
-   - 區分「wiki 已有的觀點」vs「你的綜合推論」
-6. 完成後詢問使用者：
+   - 區分「wiki 已有的觀點」vs「官方文件（Context7）」vs「綜合推論」
+7. 完成後詢問使用者：
    「這個探索要 file 回 wiki/explorations/ 嗎？」
    若同意，複製一份到 explorations/ 並更新 index。
