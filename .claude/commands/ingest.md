@@ -4,6 +4,11 @@ description: 自動找出 raw/ 下尚未 compile 的檔案並編譯（支援 PDF
 
 請執行以下步驟：
 
+## 旗標判斷
+
+- 若 `$ARGUMENTS` 包含 `--auto`，則進入自動模式：跳過使用者確認，直接執行；若無新檔案則印出「無新素材需要處理」後結束，不呼叫 /index。
+- 若不含 `--auto`，則為手動模式：顯示清單後等使用者確認。
+
 ## 階段一：盤點 raw/ 底下所有素材
 
 1. 用 Glob 列出 `raw/` 底下所有下列副檔名的檔案（遞迴）：
@@ -31,12 +36,12 @@ description: 自動找出 raw/ 下尚未 compile 的檔案並編譯（支援 PDF
    - 例如：`markitdown raw/papers/paper.pdf > raw/papers/paper.pdf.md`
    - 轉換失敗的檔案記錄下來，最後回報
    - 轉換成功後，在新建的 .md 檔案最上方加入 frontmatter：
-     ​```yaml
+     ```yaml
      ---
      original_source: raw/papers/paper.pdf
      converted_at: {當前日期}
      ---
-     ​```
+     ```
 
 ## 階段三：找出未 compile 的檔案
 
@@ -47,18 +52,18 @@ description: 自動找出 raw/ 下尚未 compile 的檔案並編譯（支援 PDF
 
 ## 階段四：確認並執行
 
-7. 顯示待處理清單給使用者：
+7. 顯示待處理清單：
    - 新轉換的檔案數量
    - 待 compile 檔案完整路徑
-8. 等使用者確認後，逐一執行 /compile 流程
-9. 全部完成後執行 /index
+8. **手動模式**：等使用者確認後繼續。**自動模式（`--auto`）**：直接執行。
+9. 逐一執行 `/compile {filepath} --batch`
+10. 全部完成後執行 /index
 
 ## 錯誤處理
 
-- markitdown 失敗：記錄錯誤訊息，跳過該檔案繼續
+- markitdown / marker 失敗：記錄錯誤訊息，跳過該檔案繼續
 - compile 失敗：記錄失敗檔案，繼續下一個
 - 最後統一回報：成功 X 個、轉換失敗 Y 個、compile 失敗 Z 個
-
 
 注意：
 - 處理過程中若某個檔案 compile 失敗，記錄下來繼續下一個，

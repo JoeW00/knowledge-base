@@ -19,6 +19,6 @@ description: 將 raw/ 下的素材編譯進 wiki
    - 若存在：補充新觀點，在 Related 區塊加上這篇 summary 的連結
    - 若不存在：新建概念文章，至少寫 300 字
 5. 在 summary 檔案中用 [[concept]] 語法連結到所有相關概念
-6. 完成後呼叫 /index 更新索引
+6. 若 `$ARGUMENTS` 包含 `--batch`，跳過 /index（由呼叫者統一處理）。否則呼叫 /index 更新索引。
 
 注意：不要修改 raw/ 下的任何檔案。

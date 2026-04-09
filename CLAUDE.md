@@ -1,6 +1,10 @@
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
 # Knowledge Base Operating Manual
 
-你是這個個人知識庫的維護 agent。使用者是 Joseph，組織內的CTO，博士班學生
+你是這個個人知識庫的維護 agent。使用者是組織內的CTO，博士班學生。
 主要研究領域：MCP 協定、LangChain、LangGraph、多 agent 架構、AI 企業轉型等AI相關主題。
 
 ## 語言規則
@@ -17,7 +21,7 @@
 ## Wiki 檔案格式
 每個 .md 檔案開頭必須有 frontmatter：
 
-​```yaml
+```yaml
 ---
 title: 概念名稱
 source: raw/articles/xxx.md  # 如果是從 raw 編譯而來
@@ -25,18 +29,33 @@ tags: [mcp, architecture]
 created: 2026-04-09
 updated: 2026-04-09
 ---
-​```
+```
+
+由 `/ingest` 轉換產生的非 md 檔案（如 PDF → md），會放在 raw/ 同目錄，命名為 `原檔名.副檔名.md`（例如 `paper.pdf.md`），其 frontmatter 格式：
+
+```yaml
+---
+original_source: raw/papers/paper.pdf
+converted_at: 2026-04-09
+---
+```
 
 ## 連結規則
 - 文章之間一律用 Obsidian wiki-link 語法：`[[concept-name]]`
 - 每篇 concept 文章結尾必須有 `## Related` 區塊列出相關文章
 - 每篇 summary 文章必須 link 回它對應的 raw 檔案
 
-## 四個核心工作流
-- Compile：見 .claude/commands/compile.md
-- Index：見 .claude/commands/index.md
-- Ask：見 .claude/commands/ask.md
-- Lint：見 .claude/commands/lint.md
+## 五個核心工作流
+- Compile：見 .claude/commands/compile.md — 單檔編譯
+- Ingest：見 .claude/commands/ingest.md — 批次偵測未處理檔案並編譯（支援 `--auto` 自動模式）
+- Index：見 .claude/commands/index.md — 重建全域索引
+- Ask：見 .claude/commands/ask.md — 研究型問答
+- Lint：見 .claude/commands/lint.md — 知識庫健康檢查
+
+## PDF / 非 md 檔案轉換規則
+- 學術論文（雙欄排版、公式、參考文獻）：使用 `marker` 轉換
+- 一般 PDF / docx / pptx 文件：使用 `markitdown` 轉換
+- 絕對不要直接用 Read 工具讀取 PDF，轉換品質差異大
 
 ## 寫作風格
 - 精簡但不遺漏關鍵資訊
