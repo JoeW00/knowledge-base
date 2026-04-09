@@ -1,4 +1,14 @@
 .DS_Store
 .obsidian/
-raw/repos/
+
+# 原始素材（唯讀，不上傳）
+raw/
+
+# wiki 產出物（由 LLM 維護，不上傳）
+wiki/
+
+# 建置復盤（個人筆記，不上傳）
+personal-knowledge-base-setup.md
+
+# 查詢產出
 outputs/
